@@ -47,6 +47,12 @@ describe "StaticPages" do
     end 
   end
 
+  it "should have the right links on the layout" do
+    visit root_path
+    click_link "About"
+    page.should have_selector 'title', text: full_title('About Us')
+end
+
 
 
 end
