@@ -44,14 +44,14 @@ describe "StaticPages" do
       visit contact_path
       page.should have_selector('title',
           text: "Ruby on Rails Tutorial Sample App | Contact")
-    end 
+    end
   end
 
   it "should have the right links on the layout" do
     visit root_path
     click_link "About"
     page.should have_selector 'title', text: full_title('About Us')
-end
+  end
 
 
 

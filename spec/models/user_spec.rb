@@ -13,7 +13,7 @@ require 'spec_helper'
 
 describe User do
   before do
-    @user = User.new(name: "Example User", email: "user@example.com", 
+    @user = User.new(name: "Example User", email: "user@example.com",
       password: "foobar", password_confirmation: "foobar")
   end
   subject { @user }
@@ -21,11 +21,12 @@ describe User do
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
 
-  
+
 
   describe "when name is not present" do
     before { @user.name = " " }
@@ -50,7 +51,7 @@ describe User do
         @user.email = invalid_address
         @user.should_not be_valid
       end
-    end 
+    end
   end
 
   describe "when email format is valid" do
@@ -59,8 +60,8 @@ describe User do
       addresses.each do |valid_address|
         @user.email = valid_address
         @user.should be_valid
-      end 
-    end 
+      end
+    end
   end
 
   describe "when email address is already taken" do
@@ -104,5 +105,10 @@ describe User do
       it { should_not == user_for_invalid_password }
       specify { user_for_invalid_password.should be_false }
     end
+  end
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
   end
 end
